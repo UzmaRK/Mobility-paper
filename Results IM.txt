@@ -1,0 +1,739 @@
+[1] "Number of variables in dataset"
+[1] 166
+[1] "Number of observations in dataset"
+[1] 1288
+[1] "Summary statistics for hight of child"
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+  122.0   147.0   153.0   153.9   160.0   190.0 
+[1] 9.953212
+[1] "Summary statistics for Weight of child"
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+  20.00   35.00   40.00   41.97   47.25  109.00 
+[1] 10.50181
+[1] "Summary statistics for age of child"
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
+   9.00   13.00   14.00   14.14   15.00   20.00       6 
+[1] 1.774925
+[1] "Summary statistics for BMI of child"
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+  7.975  15.149  17.041  17.601  19.202  39.542 
+[1] 3.534693
+[1] "Frequncy distribution for Age groups"
+  Variable Freq Percent
+1             7     0.5
+2   12-Sep  238    18.5
+3    13-14  516    40.1
+4    15-20  527    40.9
+[1] "Frequncy distribution for gender"
+  Variable Freq Percent
+1      Boy  517    40.1
+2     Girl  771    59.9
+[1] "Frequncy distribution for Class of the students"
+  Variable Freq Percent
+1        6  267    20.7
+2        7  259    20.1
+3        8  204    15.8
+4        9  349    27.1
+5       10  209    16.2
+[1] "# QUESTION-15: Which of these activities did you do the weekend just passed (on Saturday or Sunday"
+[1] "Activity =  Visited a friends home"
+                                Variable Freq Percent
+1                               Not Done  841    65.3
+2 On Your own or with other young person   67     5.2
+3           With a parent or other adult  380    29.5
+[1] "Activity =  Visited relatives or grown-ups"
+                                Variable Freq Percent
+1                               Not Done  657    51.0
+2 On Your own or with other young person  459    35.6
+3           With a parent or other adult  172    13.4
+[1] "Activity =  Visited a place of worship"
+                                Variable Freq Percent
+1                               Not Done  805    62.5
+2 On Your own or with other young person  128     9.9
+3           With a parent or other adult  355    27.6
+[1] "Activity =  Went to the shops"
+                                Variable Freq Percent
+1                               Not Done  512    39.8
+2 On Your own or with other young person  152    11.8
+3           With a parent or other adult  624    48.4
+[1] "Activity =  Went to dine out"
+                                Variable Freq Percent
+1                               Not Done  979    76.0
+2 On Your own or with other young person  188    14.6
+3           With a parent or other adult  121     9.4
+[1] "Activity =  Went to a cinema"
+                                Variable Freq Percent
+1                               Not Done 1229    95.4
+2 On Your own or with other young person   23     1.8
+3           With a parent or other adult   36     2.8
+[1] "Activity =  Spent time with friends outside after dark"
+                                Variable Freq Percent
+1                               Not Done  911    70.7
+2 On Your own or with other young person   34     2.6
+3           With a parent or other adult  343    26.6
+[1] "Activity =  Went to a playground, park or playing fields"
+                                Variable Freq Percent
+1                               Not Done  938    72.8
+2 On Your own or with other young person   85     6.6
+3           With a parent or other adult  265    20.6
+[1] "Activity =  Played sport or went swimming"
+                                Variable Freq Percent
+1                               Not Done 1171    90.9
+2 On Your own or with other young person   19     1.5
+3           With a parent or other adult   98     7.6
+[1] "Activity =  Went for a walk or cycled around"
+                                Variable Freq Percent
+1                               Not Done 1072    83.2
+2 On Your own or with other young person   18     1.4
+3           With a parent or other adult  198    15.4
+[1] "Activity =  Went to a concert"
+                                Variable Freq Percent
+1                               Not Done 1217    94.5
+2 On Your own or with other young person   25     1.9
+3           With a parent or other adult   46     3.6
+[1] "Activity =  Went to a youth club"
+                                Variable Freq Percent
+1                               Not Done 1252    97.2
+2 On Your own or with other young person   12     0.9
+3           With a parent or other adult   24     1.9
+[1] "Activity =  Went to a library"
+                                Variable Freq Percent
+1                               Not Done 1219    94.6
+2 On Your own or with other young person   15     1.2
+3           With a parent or other adult   54     4.2
+[1] "Activity =  Went to cyber/net cafe"
+                                Variable Freq Percent
+1                               Not Done 1204    93.5
+2 On Your own or with other young person   11     0.9
+3           With a parent or other adult   73     5.7
+[1] "Activity =  Went for tuition class"
+                                Variable Freq Percent
+1                               Not Done  897    69.6
+2 On Your own or with other young person   54     4.2
+3           With a parent or other adult  337    26.2
+[1] "Activity =  Went for my part time work"
+                                Variable Freq Percent
+1                               Not Done 1155    89.7
+2 On Your own or with other young person   26     2.0
+3           With a parent or other adult  107     8.3
+[1] "# QUESTION-03: Who did you travel to school with this morning"
+[1] "Travelled on my own"
+  Variable Freq Percent
+1  missing    2     0.2
+2       no  801    62.2
+3      yes  485    37.7
+[1] "independ_mobility"
+        Variable Freq Percent
+1                   3     0.2
+2          Alone  473    36.7
+3            mix   97     7.5
+4 older/same age  434    33.7
+5  parents/adult  281    21.8
+[1] "Accompany"
+        Variable Freq Percent
+1                   3     0.2
+2 alone/children  907    70.4
+3            mix   97     7.5
+4        parents  281    21.8
+[1] "Parent"
+  Variable Freq Percent
+1  missing    2     0.2
+2       no 1047    81.3
+3      yes  239    18.6
+[1] "Another adult (more than 18 years)"
+  Variable Freq Percent
+1  missing    2     0.2
+2       no 1144    88.8
+3      yes  142    11.0
+[1] "Older child / teenager"
+  Variable Freq Percent
+1  missing    2     0.2
+2       no 1158    89.9
+3      yes  128     9.9
+[1] "Child of same age or younger"
+  Variable Freq Percent
+1  missing    2     0.2
+2       no  860    66.8
+3      yes  426    33.1
+[1] "# QUESTION-04: How long did it take you to travel to school this mornings?"
+[1] "How long did it take you to travel to school this morning?"
+       Variable Freq Percent
+1      < 5 mins  472    36.6
+2     > 46 mins   24     1.9
+3 16 to 30 mins   93     7.2
+4 31 to 45 mins   48     3.7
+5  5 to 15 mins  648    50.3
+6       missing    3     0.2
+[1] "time_school"
+          Variable Freq Percent
+1                     3     0.2
+2   15 min or less 1120    87.0
+3        16-30 min   93     7.2
+4 more than 30 min   72     5.6
+[1] "# QUESTION-05: How will you go back to home from school today?"
+[1] "How will you go back home from school today?"
+    Variable Freq Percent
+1        Car   33     2.6
+2      Cycle   14     1.1
+3    missing    2     0.2
+4  Motorbike   75     5.8
+5     others   22     1.7
+6 Public Bus   34     2.6
+7 School Bus   28     2.2
+8 School Van  108     8.4
+9       Walk  972    75.5
+[1] "If other. Please write in"
+          Variable Freq Percent
+1                  1266    98.3
+2 4 Seater/Chinchi    5     0.4
+3    Rickshaw/Auto   15     1.2
+4           Suzuki    2     0.2
+[1] "# QUESTION-06: Is this your usual way to to get to home from school?"
+[1] "Is this your usual way to go back home from school?"
+  Variable Freq Percent
+1  missing    1     0.1
+2       no   49     3.8
+3      yes 1238    96.1
+[1] "If no, then how do you go to school usually?"
+           Variable Freq Percent
+1                   1264    98.1
+2               103    1     0.1
+3               203    1     0.1
+4  4 Seater/Chinchi    1     0.1
+5     Auto/Rickshaw    5     0.4
+6               Car    2     0.2
+7         Motorbike    9     0.7
+8        Public Bus    1     0.1
+9        School Van    1     0.1
+10             Walk    3     0.2
+[1] "# QUESTION-07: Who will you travel home with today?"
+[1] "IM_SH"
+  Variable Freq Percent
+1  missing    4     0.3
+2       no  781    60.6
+3      yes  503    39.1
+[1] "Child of same age or younger"
+  Variable Freq Percent
+1             6     0.5
+2       no  911    70.7
+3      yes  371    28.8
+[1] "NA"
+  Variable Freq Percent
+1  missing    3     0.2
+2       no 1188    92.2
+3      yes   97     7.5
+[1] "NA"
+  Variable Freq Percent
+1  missing    4     0.3
+2       no 1194    92.7
+3      yes   90     7.0
+[1] "NA"
+  Variable Freq Percent
+1  missing    4     0.3
+2       no 1161    90.1
+3      yes  123     9.5
+[1] "NA"
+     Variable Freq Percent
+1                6     0.5
+2       adult   79     6.1
+3       alone  501    38.9
+4         mix   14     1.1
+5 older child  111     8.6
+6     Parents   91     7.1
+7    same age  486    37.7
+[1] "NA"
+  Variable Freq Percent
+1  missing    4     0.3
+2       no  727    56.4
+3      yes  557    43.2
+[1] "# QUESTION-08: How would you like to be able to travel to and from school?"
+[1] "How would you like to be able to travel to and from school?"
+    Variable Freq Percent
+1        Car  303    23.5
+2      Cycle   66     5.1
+3    missing    7     0.5
+4  Motorbike  333    25.9
+5     others    6     0.5
+6 Public Bus   12     0.9
+7 School Bus   66     5.1
+8 School Van  112     8.7
+9       Walk  383    29.7
+[1] "like_transport mode"
+          Variable Freq Percent
+1                     7     0.5
+2          bus/van  190    14.8
+3              car  303    23.5
+4 cycle/motorcycle  405    31.4
+5             walk  383    29.7
+[1] "like to travel"
+    Variable Freq Percent
+1    bus/van  203    15.8
+2        car  303    23.5
+3 motorcycle  333    25.9
+4 walk/cycle  449    34.9
+[1] "If other. Please write in"
+          Variable Freq Percent
+1                  1283    99.6
+2 4 Seater/Chinchi    2     0.2
+3        Aeroplane    1     0.1
+4    Auto/Rickshaw    2     0.2
+[1] "# QUESTION-09: Do you think your parents trust you when you are by yourself in traffic?"
+[1] "Do you think your parents trust you when you are by yourself in traffic?"
+  Variable Freq Percent
+1   Always  585    45.4
+2  missing    9     0.7
+3    Never  221    17.2
+4 Sometime  473    36.7
+[1] "# QUESTION-10: What do your parents think is a appropriate for a child of your age to do on your own?"
+[1] "Travel by public bus in day time"
+  Variable Freq Percent
+1  missing    6     0.5
+2       no 1045    81.1
+3      yes  237    18.4
+[1] "Travel by bus in the evening"
+  Variable Freq Percent
+1  missing    6     0.5
+2       no 1207    93.7
+3      yes   75     5.8
+[1] "Cycle in day time"
+  Variable Freq Percent
+1  missing    6     0.5
+2       no 1094    84.9
+3      yes  188    14.6
+[1] "Cycle in the evening"
+  Variable Freq Percent
+1  missing    6     0.5
+2       no 1074    83.4
+3      yes  208    16.1
+[1] "Cycle_evening"
+  Variable Freq Percent
+1           614    47.7
+2       No  278    21.6
+3      Yes  396    30.7
+[1] "Walk around in day time"
+  Variable Freq Percent
+1     <NA> 1288     100
+[1] "Walk around in the evening"
+  Variable Freq Percent
+1             6     0.5
+2       No 1074    83.4
+3      yes  208    16.1
+[1] "None"
+  Variable Freq Percent
+1  missing    6     0.5
+2       no  911    70.7
+3      yes  371    28.8
+[1] "# QUESTION-11: What do you think is appropriate for a child of your age to do on his/her own??"
+[1] "Travel by public bus in day time"
+  Variable Freq Percent
+1  missing    6     0.5
+2       no  832    64.6
+3      yes  450    34.9
+[1] "Travel by bus in the evening"
+  Variable Freq Percent
+1     <NA> 1288     100
+[1] "Cycle in day time"
+  Variable Freq Percent
+1  missing   14     1.1
+2       no 1020    79.2
+3      yes  254    19.7
+[1] "Cycle in the evening"
+  Variable Freq Percent
+1  missing   14     1.1
+2       no 1161    90.1
+3      yes  113     8.8
+[1] "Walk around in day time"
+  Variable Freq Percent
+1  missing   14     1.1
+2       no 1045    81.1
+3      yes  229    17.8
+[1] "Walk around in the evening"
+  Variable Freq Percent
+1  missing   14     1.1
+2       no 1036    80.4
+3      yes  238    18.5
+[1] "None"
+  Variable Freq Percent
+1  missing   14     1.1
+2       no  907    70.4
+3      yes  367    28.5
+[1] "# QUESTION-12: QUESTIONS#12(a),12(b),12(c),and categories"
+[1] "Are you allowed to cross main roads on your own?"
+  Variable Freq Percent
+1  missing   14     1.1
+2       no  949    73.7
+3      yes  325    25.2
+[1] "If you dont cross main roads on your own, would you like to be allowed to"
+  Variable Freq Percent
+1  missing   14     1.1
+2       no  962    74.7
+3      yes  312    24.2
+[1] "How old were you when you first crossed main roads on your own?"
+  Variable Freq Percent
+1             4     0.3
+2       no  728    56.5
+3      yes  556    43.2
+[1] "crossage_q12c_cat"
+  Variable Freq Percent
+1           560    43.5
+2  missing   18     1.4
+3       no  574    44.6
+4      yes  136    10.6
+[1] "Never crossed the road on my own"
+   Variable Freq Percent
+1         3    3     0.2
+2         5   13     1.0
+3         6   19     1.5
+4         7   37     2.9
+5         8   71     5.5
+6         9   44     3.4
+7        10  134    10.4
+8        11   93     7.2
+9        12  145    11.3
+10       13   98     7.6
+11       14   46     3.6
+12       15   18     1.4
+13       16    4     0.3
+14     <NA>  563    43.7
+[1] "# QUESTION-13: QUESTIONS#13(a),13(b),13(c),and Q13(d"
+[1] "Do you have a bicycle?"
+  Variable Freq Percent
+1           563    43.7
+2      <=9  187    14.5
+3     >=10  538    41.8
+[1] "Are you allowed to cycle on main roads by your parents?"
+  Variable Freq Percent
+1           725    56.3
+2  missing   46     3.6
+3      yes  517    40.1
+[1] "If Yes, At what age were you first allowed?"
+  Variable Freq Percent
+1  missing   35     2.7
+2       no  968    75.2
+3      yes  285    22.1
+[1] "cycleage_q13b1_cat"
+  Variable Freq Percent
+1            35     2.7
+2  missing    8     0.6
+3       no 1138    88.4
+4      yes  107     8.3
+[1] "If you have a bicycle, are you allowed to ride it to go to places (like the"
+   Variable Freq Percent
+1           1173    91.1
+2        10   16     1.2
+3        11   10     0.8
+4        12   20     1.6
+5        13   12     0.9
+6        14    5     0.4
+7        15    5     0.4
+8        16    1     0.1
+9         4    1     0.1
+10        6    3     0.2
+11        7    9     0.7
+12        8    6     0.5
+13        9   11     0.9
+14  missing   16     1.2
+[1] "How many times do you cycle in a typical week (both with and without parent"
+  Variable Freq Percent
+1          1189    92.3
+2      <=9   30     2.3
+3     >=10   69     5.4
+[1] "# QUESTION-14: QUESTIONS#14(a),14(b),14(c),and Q14(d"
+[1] "Are you allowed to go on  public buses on your own (other than a school bus)"
+  Variable Freq Percent
+1           563    43.7
+2      <=9  187    14.5
+3     >=10  538    41.8
+[1] "FriensIM"
+  Variable Freq Percent
+1           725    56.3
+2  missing   46     3.6
+3      yes  517    40.1
+[1] "NA"
+  Variable Freq Percent
+1  missing   35     2.7
+2       no  968    75.2
+3      yes  285    22.1
+[1] "NA"
+  Variable Freq Percent
+1            35     2.7
+2  missing    8     0.6
+3       no 1138    88.4
+4      yes  107     8.3
+[1] "NA"
+   Variable Freq Percent
+1           1173    91.1
+2        10   16     1.2
+3        11   10     0.8
+4        12   20     1.6
+5        13   12     0.9
+6        14    5     0.4
+7        15    5     0.4
+8        16    1     0.1
+9         4    1     0.1
+10        6    3     0.2
+11        7    9     0.7
+12        8    6     0.5
+13        9   11     0.9
+14  missing   16     1.2
+[1] "NA"
+  Variable Freq Percent
+1          1189    92.3
+2      <=9   30     2.3
+3     >=10   69     5.4
+[1] "# QUESTION-16: Have you ever involved in a traffic injury?"
+[1] "NA"
+               Variable Freq Percent
+1           No Activity  142      11
+2 There was an activity 1146      89
+[1] "NA"
+     Variable Freq Percent
+1                1     0.1
+2    activity 1148    89.1
+3 no activity  139    10.8
+[1] "NA"
+  Variable Freq Percent
+1  missing    4     0.3
+2       no  735    57.1
+3      yes  549    42.6
+[1] "NA"
+  Variable Freq Percent
+1           739    57.4
+2  missing    6     0.5
+3       no   83     6.4
+4      yes  460    35.7
+[1] "NA"
+  Variable Freq Percent
+1       no  828    64.3
+2      yes  460    35.7
+[1] "NA"
+  Variable Freq Percent
+1        0   75     5.8
+2     <NA> 1213    94.2
+[1] "NA"
+                              Variable Freq Percent
+1 injury for which care has been taken  261    20.3
+2                            no injury 1027    79.7
+[1] "NA"
+  Variable Freq Percent
+1       No  966      75
+2      Yes  322      25
+[1] "NA"
+  Variable Freq Percent
+1           824    64.0
+2  missing    3     0.2
+3       no  386    30.0
+4      yes   75     5.8
+[1] "NA"
+  Variable Freq Percent
+1           824    64.0
+2  missing    3     0.2
+3       no  256    19.9
+4      yes  205    15.9
+[1] "NA"
+  Variable Freq Percent
+1           824    64.0
+2  missing    3     0.2
+3       no  392    30.4
+4      yes   69     5.4
+[1] "# QUESTION-19: Have you ever involved in a traffic injury?"
+[1] "How safe do you think is the traffic environment in your local neighbourhoo"
+  Variable Freq Percent
+1           824    64.0
+2  missing    3     0.2
+3       no  317    24.6
+4      yes  144    11.2
+[1] "q17btraffic"
+  Variable Freq Percent
+1  missing   17     1.3
+2       no  156    12.1
+3      yes 1115    86.6
+[1] "Yes"
+                   Variable Freq Percent
+1               Fairly safe  328    25.5
+2                   missing   45     3.5
+3 Not allowed out on my own  263    20.4
+4           Not at all safe   45     3.5
+5             Not very safe   93     7.2
+6                 Very safe  514    39.9
+[1] "No, because of my age"
+  Variable Freq Percent
+1            45     3.5
+2     safe  842    65.4
+3   unsafe  401    31.1
+[1] "No, because of my gender"
+         Variable Freq Percent
+1     Fairly safe  389    30.2
+2         missing   27     2.1
+3 Not at all safe  176    13.7
+4   Not very safe  312    24.2
+5       Very safe  384    29.8
+[1] "No, other reasons"
+  Variable Freq Percent
+1            27     2.1
+2     safe  773    60.0
+3   unsafe  488    37.9
+[1] "Dont know"
+  Variable Freq Percent
+1  missing    5     0.4
+2       no  494    38.4
+3      yes  789    61.3
+[1] "q17c alonefrds"
+  Variable Freq Percent
+1  missing    5     0.4
+2       no 1111    86.3
+3      yes  172    13.4
+[1] "q17c_cat_alonefriends"
+  Variable Freq Percent
+1  missing    5     0.4
+2       no 1050    81.5
+3      yes  233    18.1
+[1] "q17_C"
+                       Variable Freq Percent
+1                               1239    96.2
+2              Bad boys company    1     0.1
+3      Because of busy schedule    3     0.2
+4  Because of my family enimies    1     0.1
+5         Because of my illness    1     0.1
+6       Environment is not good    8     0.6
+7     I am scared of kidnapping    1     0.1
+8   I don't trust anyone/people    2     0.2
+9        I don’t like going out    2     0.2
+10             Living in hostle    4     0.3
+11    Neighbourhood is not good    1     0.1
+12       Parents don't allow me    3     0.2
+13           Reason not mention   11     0.9
+14    Road accidents/Casualties    1     0.1
+15  Undesirable city conditions   10     0.8
+[1] "traffic worried"
+  Variable Freq Percent
+1             7     0.5
+2       no 1232    95.7
+3      yes   49     3.8
+[1] "Traffic"
+             Variable Freq Percent
+1                       57     4.4
+2                  no   44     3.4
+3    no due to my age  171    13.3
+4 no due to my gender  230    17.9
+5                 Yes  786    61.0
+[1] "Getting lost"
+  Variable Freq Percent
+1            57     4.4
+2       no  445    34.5
+3      yes  786    61.0
+[1] "Bullying"
+             Variable Freq Percent
+1                      101     7.8
+2    no b/c of my age  169    13.1
+3 no b/c of my gender  229    17.8
+4                 Yes  789    61.3
+[1] "Strangers"
+  Variable Freq Percent
+1       no  615    47.7
+2      yes  673    52.3
+[1] "If someone speaks to me"
+    Variable Freq Percent
+1 Don't know   28     2.2
+2    missing   89     6.9
+3         no  498    38.7
+4        yes  673    52.3
+[1] "Q17D6"
+    Variable Freq Percent
+1 Don't know   47     3.6
+2    missing  128     9.9
+3         no  582    45.2
+4        yes  531    41.2
+[1] "NA"
+    Variable Freq Percent
+1 Don't know   39     3.0
+2    missing  158    12.3
+3         no  694    53.9
+4        yes  397    30.8
+[1] "NA"
+    Variable Freq Percent
+1 Don't know   19     1.5
+2    missing  105     8.2
+3         no  437    33.9
+4        yes  727    56.4
+[1] "# QUESTION GENERAL:QUESTIONS?"
+[1] "NA"
+   Variable Freq Percent
+1              6     0.5
+2 13-15 yrs  920    71.4
+3 16-20 yrs  124     9.6
+4  9-12 yrs  238    18.5
+[1] "NA"
+               Variable Freq Percent
+1                       1233    95.7
+2 parent interview only   55     4.3
+[1] "NA"
+  Variable Freq Percent
+1           554    43.0
+2    44203    1     0.1
+3  Private  428    33.2
+4   Public  305    23.7
+[1] "NA"
+   Variable Freq Percent
+1 15-20 yrs  527    40.9
+2  9-14 yrs  761    59.1
+[1] "NA"
+    Variable Freq Percent
+1      7-Jun  526    40.8
+2 8-10 class  762    59.2
+[1] "NA"
+  Variable Freq Percent
+1      Boy  517    40.1
+2     Girl  771    59.9
+[1] "NA"
+        Variable Freq Percent
+1                   6     0.5
+2            Car   46     3.6
+3          Cycle    7     0.5
+4     motorcycle  143    11.1
+5     Public Bus   21     1.6
+6 Ricshaw/qinchi   18     1.4
+7     school bus   31     2.4
+8     School Van   86     6.7
+9           walk  930    72.2
+[1] "Any activity on weekend"
+character(0)
+               Variable Freq Percent
+1           No Activity  142      11
+2 There was an activity 1146      89
+[1] "Mode to school"
+[1] "Walked most or all the way"
+  Variable Freq Percent
+1  Missing    2     0.2
+2       no  352    27.3
+3      yes  934    72.5
+[1] "Cycled"
+  Variable Freq Percent
+1  Missing    4     0.3
+2       no 1275    99.0
+3      yes    9     0.7
+[1] "School bus"
+  Variable Freq Percent
+1  Missing    4     0.3
+2       no 1253    97.3
+3      yes   31     2.4
+[1] "School Van"
+  Variable Freq Percent
+1  Missing    4     0.3
+2       no 1198    93.0
+3      yes   86     6.7
+[1] "Public bus"
+  Variable Freq Percent
+1  Missing    4     0.3
+2       no 1260    97.8
+3      yes   24     1.9
+[1] "Car"
+  Variable Freq Percent
+1  Missing    4     0.3
+2       no 1237    96.0
+3      yes   47     3.6
+[1] "Motorcycle"
+  Variable Freq Percent
+1  Missing    4     0.3
+2       no 1138    88.4
+3      yes  146    11.3
