@@ -8,8 +8,6 @@
 
 ## Fixing the working director
 setwd("C:/Users/uzma.khan/Desktop/R-IM-URK")
-## Reading the data from the above mentioned directory
-data <- read.csv("Mobility-data.csv",header=TRUE)
 
 ## Load required packages
 install.packages("data.table")
@@ -20,26 +18,27 @@ install.packages("survival")
 library(survival)
 install.packages("ISLR")
 library(ISLR)
+install.packages("labelled")
+library(labelled)
 
-#data description
-#Description of attribute of the variable
+## Reading the data from the above mentioned directory
+data <- data.table::fread("mobility-data.csv", data.table = FALSE)
+
+## Data description
+## Description of attribute of the variable
 head(data)
-# Data observation and number of variable 
+## Data observation and number of variable 
 dim(data)
-# Checking qualitative and quantitative variable
+## Checking qualitative and quantitative variable, need to rename the
+## Cafe variable because the accent is hard for R to work with
+names(data)[names(data) == "Caf\xe9"] <- "Cafe"
 str(data)
 
-### Get Variable names
+## Get Variable names
 dput(names(data))
 
-
-  
-#Categories of Age groups of children
-
-data$agecat <- as.numeric(ifelse(data$Age < 13, 1,ifelse(data$Age >14, 3, 2)))
-
-data$agecat <- as.factor(data$agecat)
-
+## Categories of Age groups of children
+data$agecat <- as.factor(ifelse(data$Age < 13, 1, ifelse(data$Age > 14, 3, 2)))
 levels(data$agecat) <- c("9 to 12","13 to 14","15 to 20")
 summary(data$agecat)
 
@@ -48,45 +47,42 @@ myVars <- c("agecat", "Age", "Gender", "Grade", "TYPEOFSC", "shift_school",
             "School.transport", "Transport_2or3wheelers", "Travel_Accompany", 
             "Travel.accompany1", "Travel.accompany2", "TimeSchool", "time_school", 
             "SchoolHomeTransport", "home_schooltransportusual", "Returned_Travel_Accompany", 
-            "Parents_Trust", "Cross_road", "Allow_Public_Bus", "RTI", "RTI_Consult", 
-            )
+            "Parents_Trust", "Cross_road", "Allow_Public_Bus", "RTI", "RTI_Consult")
 catVar <- c("Grade")
 
+## You need to deal with missing data somewhere here
+
 ## Create Descriptive table
-tab1 <-CreateTableOne(vars = myVars,data = data,factorVar = catVar)
+tab1 <-tableone::CreateTableOne(vars = myVars,data = data,factorVar = catVar)
 tab1
 
-
 ## Create Cross tabulation by taking outcome RTI
-tab2 <-CreateTableOne(vars = myVars, strata = "RTI", data = data, factorVars = catVar)
+tab2 <-tableone::CreateTableOne(vars = myVars, strata = "RTI", data = data, factorVars = catVar)
 tab2
 
-# Univariate Logistic regression of age groups with RTI
-
-
-model1=glm(data$RTI ~ relevel(data$agecat, ref = 1),  
-           family = "binomial", data=data)
-summary(model1)
-lreg.or <-exp(cbind(OR = coef(model3), confint(model3)))
+## Univariate Logistic regression of age groups with RTI
+data$RTI <- as.numeric(data$RTI)
+model1 <- glm(RTI ~ agecat,  
+             family = "binomial", data = data)
+lreg.or <-exp(cbind(OR = coef(model1), confint(model1)))
 round(lreg.or, digits=2)
+summary(model1)
 
 # Logistic regression of public versus private school with RTI
-
-model2=glm(data$RTI ~ data$TYPEOFSC, family = "binomial")
+model2 <- glm(RTI ~ TYPEOFSC, family = "binomial", data = data)
 summary(model2)
 exp(cbind(OR = coef(model2), confint(model2)))
 
-
 # Logistic regression of Gender with RTI
 
-model5=glm(data$RTI ~ data$Gender,  family = "binomial")
+model5 <- glm(RTI ~ Gender,  family = "binomial", data = data)
 summary(model5)
 exp(cbind(OR = coef(model5), confint(model5)))
 
 # Logistic regression of Accompany to school with RTI
 
-model6=glm(RTI ~ relevel(Travel_Accompany, ref = 1),  
-           family = "binomial", data=data)
+model6 <- glm(RTI ~ relevel(Travel_Accompany, ref = 1),  
+              family = "binomial", data = data)
 summary(model6)
 exp(cbind(OR = coef(model6), confint(model6)))
 
