@@ -7,81 +7,129 @@
 
 
 ## Fixing the working director
-setwd("C:/Users/uzma.khan/Desktop/R-IM-URK")
+setwd("C:/Users/uzma.khan/Desktop/R-IM-URK")     
 
 ## Load required packages
-install.packages("data.table")
+##install.packages("data.table")
 library(data.table)
-install.packages("tableone")
+##install.packages("tableone")
 library(tableone)
-install.packages("survival")
+##install.packages("survival")
 library(survival)
-install.packages("ISLR")
+##install.packages("ISLR")
 library(ISLR)
 install.packages("labelled")
 library(labelled)
 
+## Reading the data from the above mentioned directory
+data <- read.csv("Mobility-data.csv",header=TRUE)
 ## Reading the data from the above mentioned directory
 data <- data.table::fread("mobility-data.csv", data.table = FALSE)
 
 ## Data description
 ## Description of attribute of the variable
 head(data)
+
 ## Data observation and number of variable 
 dim(data)
+
 ## Checking qualitative and quantitative variable, need to rename the
 ## Cafe variable because the accent is hard for R to work with
 names(data)[names(data) == "Caf\xe9"] <- "Cafe"
 str(data)
 
+names(data) <- c("new_ID", "age", "gender", "grade", "type_school", "shift_school", 
+                 "school_transport", "transport_2or3wheelers", "travel_accompany", 
+                 "travel_accompany1", "travel_accompany2", "time_school_1", "time_school", 
+                 "school_home_transport", "home_school_transport_usual", "returned_travel_accompany", 
+                 "parents_trust", "cross_road", "allow_public_bus", "visit_friend_home", 
+                 "visit_relatives", "worship_place", "visit_shop", "dineout", 
+                 "visit_cinema", "friends_dark", "play_ground", "play_score", 
+                 "went_for_Walk", "went_concert", "went_club", "library", "cafe", 
+                 "tuition", "part_time_work", "any_activity", "activity_alone", 
+                 "activity_independent", "Q15R", "weekend", "RTI", "RTI_consult")
+
+
 ## Get Variable names
 dput(names(data))
 
+
 ## Categories of Age groups of children
-data$agecat <- as.factor(ifelse(data$Age < 13, 1, ifelse(data$Age > 14, 3, 2)))
-levels(data$agecat) <- c("9 to 12","13 to 14","15 to 20")
-summary(data$agecat)
+data$age_cat <- as.factor(ifelse(data$age < 13, 1, ifelse(data$age > 14, 3, 2)))
+levels(data$age_cat) <- c("9 to 12","13 to 14","15 to 20")
+summary(data$age_cat)
+
+data$RTI[is.missing(data)]=NA
+missing.omit(data$RTI)
+data$RTI <- as.numeric(data$RTI)
+
+
 
 ## Vector of variable to summarize
-myVars <- c("agecat", "Age", "Gender", "Grade", "TYPEOFSC", "shift_school", 
-            "School.transport", "Transport_2or3wheelers", "Travel_Accompany", 
-            "Travel.accompany1", "Travel.accompany2", "TimeSchool", "time_school", 
-            "SchoolHomeTransport", "home_schooltransportusual", "Returned_Travel_Accompany", 
-            "Parents_Trust", "Cross_road", "Allow_Public_Bus", "RTI", "RTI_Consult")
-catVar <- c("Grade")
+myVars <- c("age","age_cat", "gender", "grade", "type_school", "shift_school", 
+            "school_transport", "transport_2or3wheelers", "travel_accompany", 
+            "travel_accompany1", "travel_accompany2", "time_school", 
+            "school_home_transport", "home_school_transport_usual", "returned_travel_accompany", 
+            "parents_trust", "cross_road", "allow_public_bus", "visit_friend_home", 
+            "visit_relatives", "worship_place", "visit_shop", "dineout", 
+            "visit_cinema", "friends_dark", "play_ground", "play_score", 
+            "went_for_Walk", "went_concert", "went_club", "library", "cafe", 
+            "tuition", "part_time_work", "any_activity", "activity_alone", 
+            "activity_independent", "weekend", "RTI", "RTI_consult")
+catVars <- c("gender", "grade", "type_school", "shift_school", 
+             "school_transport", "transport_2or3wheelers", "travel_accompany", 
+             "travel_accompany1", "travel_accompany2", "time_school",
+             "school_home_transport", "home_school_transport_usual", "returned_travel_accompany", 
+             "parents_trust", "cross_road", "allow_public_bus", "visit_friend_home", 
+             "visit_relatives", "worship_place", "visit_shop", "dineout", 
+             "visit_cinema", "friends_dark", "play_ground", "play_score", 
+             "went_for_Walk", "went_concert", "went_club", "library", "cafe", 
+             "tuition", "part_time_work", "any_activity", "activity_alone", 
+             "activity_independent", "weekend", "RTI", "RTI_consult", 
+             "age_cat")
 
-## You need to deal with missing data somewhere here
 
 ## Create Descriptive table
-tab1 <-tableone::CreateTableOne(vars = myVars,data = data,factorVar = catVar)
+tab1 <-tableone::CreateTableOne(vars = myVars,data = data, factorVar = catVars)
 tab1
 
+
 ## Create Cross tabulation by taking outcome RTI
-tab2 <-tableone::CreateTableOne(vars = myVars, strata = "RTI", data = data, factorVars = catVar)
+tab2 <-tableone::CreateTableOne(vars = myVars, strata = "RTI", data = data, factorVars = catVars)
 tab2
 
 ## Univariate Logistic regression of age groups with RTI
-data$RTI <- as.numeric(data$RTI)
-model1 <- glm(RTI ~ agecat,  
-             family = "binomial", data = data)
+
+model1 <- glm(RTI ~ age_cat,  
+              family = "binomial", data = data)
 lreg.or <-exp(cbind(OR = coef(model1), confint(model1)))
 round(lreg.or, digits=2)
 summary(model1)
 
+data$RTI <- as.numeric(data$RTI)
+model1 <- glm(RTI ~ age_cat, family = "binomial", data = data)
+lreg.or <-exp(cbind(OR = coef(model1), confint(model1)))
+round(lreg.or, digits=2)
+summary(model1)
+
+
+
 # Logistic regression of public versus private school with RTI
-model2 <- glm(RTI ~ TYPEOFSC, family = "binomial", data = data)
+
+model2 <- glm(RTI ~ type_school, family = "binomial", data = data)
 summary(model2)
 exp(cbind(OR = coef(model2), confint(model2)))
 
+
 # Logistic regression of Gender with RTI
 
-model5 <- glm(RTI ~ Gender,  family = "binomial", data = data)
+model5 <- glm(RTI ~ gender,  family = "binomial", data = data)
 summary(model5)
 exp(cbind(OR = coef(model5), confint(model5)))
 
 # Logistic regression of Accompany to school with RTI
 
-model6 <- glm(RTI ~ relevel(Travel_Accompany, ref = 1),  
+model6 <- glm(RTI ~ relevel(as.factor(travel_accompany), ref = 1),  
               family = "binomial", data = data)
 summary(model6)
 exp(cbind(OR = coef(model6), confint(model6)))
@@ -112,6 +160,84 @@ summary(model10)
 exp(cbind(OR = coef(model10), confint(model10)))
 
 
+##install.packages("knitr")
+##install.packages("rmarkdown")
+library(knitr)
+library(rmarkdown)
+
+label.list <-list(age= "Age (years)",age_cat ="Age groups", gender="Gender",grade="Grade",
+                  type_school="Type of school", shift_school="Shif of school",school_transport="School transport",
+                  transport_2or3wheelers ="Transport 2 or 3 wheelers", travel_accompany ="Travel accompany",
+                  travel_accompany1="Travel accompany 1", travel_accompany2="Travel accompany 1", time_school="Time of school",
+                  school_home_transport="School home transport",home_school_transport_usual="home school transport usual",
+                  returned_travel_accompany="Returned travel accompany", parents_trust="Parents trust",
+                  cross_road="Cross road", allow_public_bus="Allow public bus", visit_friend_home="Visit friend home",
+                  visit_relatives="Visit to relatives", worship_place="Visit to worship place", visit_shop="Visit to shop",
+                  dineout="Dineout", visit_cinema="Visit cinema", friends_dark="Friends dark", play_ground="Going to play ground",
+                  play_score="Paly score", went_for_Walk="Went for walk", went_concert="Went to concert",
+                  went_club="Went to club", library=" Went to library", cafe="Cafe",
+                  tuition="Tuition", part_time_work="Part time work", any_activity="Any activity",
+                  activity_alone="Activity alone", activity_independent="Activity independent", weekend="Weekend",
+                  RTI="Road traffic incident", RTI_consult="Road traffic incident consulted")
+
+labelled::var_label(data) <- label.list
+
+test.data <- data[names(label.list)]
+table1 <- tableone::CreateTableOne(vars = myVars,data = data, factorVar = catVars)
+
+pretty.table1 <- tableone:::print.TableOne(table1, varLabels = TRUE, showAllLevels = TRUE)
+
+colnames(pretty.table1)[colnames(pretty.table1) == "level"] <- "Level"
+
+prettier.table <- knitr::kable(pretty.table1)
+tmp.file <- tempfile(tmpdir = ".", fileext = "md")
+write(prettier.table, tmp.file)
+rmarkdown::render(tmp.file, output_file = "Table 1.docx", output_format = "word_document")
+file.remove(tmp.file)
+
+## Cross tab 2
+table2 <- tableone::CreateTableOne(vars = myVars, strata = "RTI", data = data, factorVars = catVars)
+
+pretty.table2 <- tableone:::print.TableOne(table2, varLabels = TRUE, showAllLevels = TRUE)
+
+colnames(pretty.table2)[colnames(pretty.table2) == "level"] <- "Level"
+
+prettier.table <- knitr::kable(pretty.table2)
+tmp.file <- tempfile(tmpdir = ".", fileext = "md")
+write(prettier.table, tmp.file)
+rmarkdown::render(tmp.file, output_file = "Table 2.docx", output_format = "word_document")
+file.remove(tmp.file)
+
+data$RTI <- as.numeric(data$RTI)
+model1 <- glm(RTI ~ age_cat+gender+grade + type_school+shift_school+school_transport+travel_accompany+
+              time_school+school_home_transport+returned_travel_accompany+parents_trust+cross_road+
+              allow_public_bus+visit_friend_home+visit_relatives+worship_place+visit_shop+dineout+
+              visit_cinema+friends_dark+play_ground+play_score+went_for_Walk+went_concert+went_club+
+              library+cafe+tuition+part_time_work+any_activity,
+              family = "binomial", data = data)
+lreg.or <-exp(cbind(OR = coef(model1), confint(model1)))
+round(lreg.or, digits=2)
+summary(model1)
+exp(cbind(OR = coef(model1), confint(model1)))
+
+data$RTI <- as.numeric(data$RTI)
+model1 <- glm(RTI ~ age_cat+gender + type_school+shift_school+transport_2or3wheelers+travel_accompany+
+                time_school++parents_trust+cross_road+
+                allow_public_bus+any_activity,
+              family = "binomial", data = data)
+lreg.or <-exp(cbind(OR = coef(model1), confint(model1)))
+round(lreg.or, digits=2)
+summary(model1)
+exp(cbind(OR = coef(model1), confint(model1)))
+
+data$RTI <- as.numeric(data$RTI)
+model1 <- glm(RTI ~ age_cat+gender+cross_road+
+               +any_activity,
+              family = "binomial", data = data)
+lreg.or <-exp(cbind(OR = coef(model1), confint(model1)))
+round(lreg.or, digits=2)
+summary(model1)
+exp(cbind(OR = coef(model1), confint(model1)))
 
 
 
