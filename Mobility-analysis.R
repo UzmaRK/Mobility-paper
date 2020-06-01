@@ -5,9 +5,8 @@
 ## Junaid Razzak
 ## Martin Gerdin Wärnberg
 
-
 ## Fixing the working director
-setwd("C:/Users/uzma.khan/Desktop/R-IM-URK")     
+setwd("C:/Users/uzma.khan/Desktop/R-IM-URK")         
 
 ## Load required packages
 ##install.packages("data.table")
@@ -30,87 +29,142 @@ data <- data.table::fread("Mobility-data.csv", data.table = FALSE)
 
 ## Data description
 ## Description of attribute of the variable
-head(data)
+str(data)
 
-## Data observation and number of variable 
-dim(data)
-
-## Checking qualitative and quantitative variable
-names(data)
-
-## Need to rename the Cafe variable because the accent is hard for R to work with
-names(data)[names(data) == "Caf\xe9"] <- "Cafe"
 
 ## Rename variables
 names(data) <- tolower(names(data))
 names(data) <- gsub("-", "_", names(data))
 names(data) <- gsub(".", "_", names(data), fixed = TRUE)
 names(data) <- gsub(" ", "_", names(data), fixed = TRUE)
-names(data)[names(data) == "typeofsc"] <- "type_school"
-names(data)[names(data) == "schoolhometransport"] <- "school_home_transport"
-names(data)[names(data) == "home_schooltransportusual"] <- "home_school_transport_usual"
-names(data)[names(data) == "Travel.accompany2"] <- "schooltravel_accompany"
-names(data)[names(data) == "Parents_Trust"] <- "parents_trust"
-names(data)[names(data) == "Allow_Public_Bus"] <- "allow_public_bus"
-names(data)[names(data) == "RTI_Consult"] <- "rti_consult"
+names(data)
 
-## Categories of Age groups of children
+names(data)[names(data) == "Age"] <- "age"
+names(data)[names(data) == "Gender"] <- "gender"
+names(data)[names(data) == "Grade"] <- "grade"
+names(data)[names(data) == "typeofsc"] <- "type_school"
+names(data)[names(data) == "transport_2or3wheelers"] <- "home_school_transport"
+names(data)[names(data) == "travel_accompany2"] <- "home_school_accompany"
+names(data)[names(data) == "timeschool"] <- "time_to_school"
+names(data)[names(data) == "schoolhometransport"] <- "school_home_transport"
+names(data)[names(data) == "returned_travel_accompany"] <- "returned_travel_accompany"
+names(data)[names(data) == "parents_trust"] <- "parents_trust"
+names(data)[names(data) == "allow_public_bus"] <- "allow_public_bus"
+names(data)[names(data) == "any_activity"] <- "any_activity"
+names(data)[names(data) == "rti_consult"] <- "rti_consult"
+
+
+## Frequency of variables
+table(data$age)
+table(data$gender)
+table(data$grade)
+table(data$type_school)
+table(data$home_school_transport)
+table(data$home_school_accompany)
+table(data$time_to_school)
+table(data$school_home_transport)
+table(data$returned_travel_accompany)
+table(data$parents_trust)
+table(data$cross_road)
+table(data$allow_public_bus)
+table(data$any_activity)
+table(data$rti_consult)
+
+
+## Replace missing in variables with NA
+data$time_to_school[data$time_to_school == "missing"] <- NA
+data$allow_public_bus[data$allow_public_bus == "missing"] <- NA
+data$rti_consult[data$rti_consult == "missing"] <- NA
+
+table(data$time_to_school,useNA = "always")
+table(data$allow_public_bus,useNA = "always")
+table(data$rti_consult,useNA = "always")
+## Remove obs missing/NA in variables
+data <- data[!is.na(data$time_to_school),]
+data <- data[!is.na(data$allow_public_bus),]
+data <- data[!is.na(data$rti_consult),]
+
+table(data$time_to_school)
+table(data$allow_public_bus)
+table(data$rti_consult)
+
+## Categrizing age
 data$age_cat <- as.factor(ifelse(data$age < 13, 1, ifelse(data$age > 14, 3, 2)))
 levels(data$age_cat) <- c("9 to 12","13 to 14","15 to 20")
 summary(data$age_cat)
+## Replace blank in variable  time_to_school with NA
+#data$time_to_school[data$time_to_school == ""] <- NA
+#table(data$time_to_school)
 
-## Replace missing in variable  rti_consult with NA
-data$rti_consult[data$rti_consult == "missing"] <- NA
-
-## Remove obs missing in rti_consult
-data <- data[!is.na(data$rti_consult),]
-
-## Give rti and rti_consult new levels
+## Give  new levels to some variables
 data$rti_consult <- as.character(data$rti_consult)
 data$rti_consult[data$rti_consult == "0"] <- "No road traffic injury"
 data$rti_consult[data$rti_consult == "1"] <- "Road traffic injury"
 data$rti_consult <- as.factor(data$rti_consult)
-table(data$rti_consult)
+
+data$home_school_accompany[data$home_school_accompany == "Merged Parent and Adult"] <- "Either with parent or any other adult"
+data$home_school_accompany[data$home_school_accompany == "Alone/Same Age"] <- "Alone or with someone of same age"
+data$home_school_accompany[data$home_school_accompany == "Mix"] <- "Mix travel pattern; alone or with parents"
+
+data$any_activity[data$any_activity == "Not Done"] <- "No activity on the weekend"
+data$any_activity[data$any_activity == "Mix"] <- "Activities either with parents or alone"
+data$any_activity[data$any_activity == "On Your own or with other young person"] <- "On own or with other young person"
+
+# Collapse levels
+data$returned_travel_accompany[data$returned_travel_accompany == "Parent"] <- "Parent or adult"
+data$returned_travel_accompany[data$returned_travel_accompany == "Another adult"] <- "Parent or adult"
+data$returned_travel_accompany[data$returned_travel_accompany == "Travelling home alone"] <- "On own or with other child"
+data$returned_travel_accompany[data$returned_travel_accompany == "Older child / teenager"] <- "On own or with other child"
+data$returned_travel_accompany[data$returned_travel_accompany == "Child of same age or younger"] <- "On own or with other child"
+data$returned_travel_accompany[data$returned_travel_accompany == "Mix"] <- "Mix travel pattern; alone or with parents"
+
+table(data$school_home_transport)
+data$school_home_transport<- as.character(data$school_home_transport)
+data$school_home_transport[data$school_home_transport == "Cycle"] <- "Two or Three Wheelers"
+data$school_home_transport[data$school_home_transport == "Rickshaw"] <- "Two or Three Wheelers"
+data$school_home_transport[data$school_home_transport == "Motorbike"] <- "Two or Three Wheelers"
+data$school_home_transport[data$school_home_transport== "Car"] <- "Four Wheelers"
+data$school_home_transport[data$school_home_transport== "Public Bus"] <- "Four Wheelers"
+data$school_home_transport[data$school_home_transport== "School Bus"] <- "Four Wheelers"
+data$school_home_transport[data$school_home_transport== "School Van"] <- "Four Wheelers"
+data$school_home_transport[data$school_home_transport== "Suzuki"] <- "Four Wheelers"
+data$school_home_transport[data$school_home_transport == "Walking"] <- "Walking"
+table(data$school_home_transpor)
+
+## Categorical variables in the data
+catVars <- c("age_cat", 
+             "gender", 
+             "grade", 
+             "type_school", 
+             "home_school_transport",
+             "home_school_accompany", 
+             "time_to_school", 
+             "school_home_transport", 
+             "returned_travel_accompany",
+             "parents_trust", 
+             "cross_road", 
+             "allow_public_bus", 
+             "any_activity", 
+             "rti_consult")
+
+data[catVars] <- lapply(data[catVars], as.factor)
 
 ## Create a label list
 label.list <-list(age_cat = "Age groups",
                   gender = "Gender",
                   grade = "Grade",
-                  type_school = "Type of school",
-                  shift_school = "Shift of school",
-                  school_transport = "School transport",
-                  transport_2or3wheelers = "Transport 2 or 3 wheelers",
-                  travel_accompany = "Travel accompany",
-                  travel_accompany1 = "Travel accompany 1",
-                  travel_accompany2 = "Travel accompany 2",
-                  time_school = "Time of school",
-                  school_home_transport = "School home transport",
-                  returned_travel_accompany = "Returned travel accompany",
-                  parents_trust = "Parents trust",
-                  cross_road = "Cross road",
-                  allow_public_bus = "Allow public bus",
-                  visit_friend_home = "Visit friend home",
-                  visit_relatives = "Visit to relatives",
-                  worship_place = "Visit to worship place",
-                  visit_shop = "Visit to shop",
-                  dineout = "Dineout",
-                  visit_cinema = "Visit cinema",
-                  friends_dark = "Friends dark",
-                  play_ground = "Going to play ground",
-                  play_score = "Paly score",
-                  went_for_walk = "Went for walk",
-                  went_concert = "Went to concert",
-                  went_club = "Went to club",
-                  library = "Went to library",
-                  cafe = "Cafe",
-                  tuition = "Tuition",
-                  part_time_work = "Part time work",
-                  any_activity = "Any activity",
-                  activity_alone = "Activity alone",
-                  activity_independent = "Activity independent",
-                  weekend = "Weekend",
-                  rti = "Road traffic incident",
-                  rti_consult = "Road traffic injury consulted")
+                  type_school = "Type of School",
+                  home_school_transport = "Mode of transport to school",
+                  home_school_accompany = "School travel was alone or accompanied",
+                  time_to_school = "Time to reach school",
+                  school_home_transport = "Mode of transport on way back to home from school",
+                  returned_travel_accompany = "Home travel from school was accompanied with",
+                  parents_trust = "Parents trust on child when in traffic alone",
+                  cross_road = " Child allowed to cross main roads",
+                  allow_public_bus = "Child allowed to go on public bus",
+                  any_activity  = "Child activity over the weekend",
+                  rti_consult = "Road traffic injury that required medical consultation")
+                  
 
 ## Keep only relevant variables in the data
 data <- data[, names(label.list)]
@@ -129,7 +183,7 @@ rmarkdown::render(tmp.file, output_file = "Table 1.docx", output_format = "word_
 file.remove(tmp.file)
 
 ## Create Table 2
-table2 <- tableone::CreateTableOne(strata = "rti", data = data)
+table2 <- tableone::CreateTableOne(strata = "rti_consult", data = data, factorVar = catVars)
 pretty.table2 <- tableone:::print.TableOne(table2, varLabels = TRUE, showAllLevels = TRUE, test = FALSE)
 colnames(pretty.table2)[colnames(pretty.table2) == "level"] <- "Level"
 prettier.table <- knitr::kable(pretty.table2)
@@ -139,96 +193,111 @@ rmarkdown::render(tmp.file, output_file = "Table 2.docx", output_format = "word_
 file.remove(tmp.file)
 
 ## Univariate Logistic regression of age groups with RTI
+table(data$age_cat)
+data$age <- relevel(data$age_cat, ref = "15 to 20")
+labelled::var_label(data$age_cat) <- "Age"
 model1 <- glm(rti_consult ~ age_cat, family = "binomial", data = data)
 
 ## Create function that returns a pretty regression table
-pretty_regression_table <- function(model.object) {
-    cis <- confint(model.object)
-    or.ci <- round(exp(cbind(OR = coef(model.object), cis)), digits = 2)
-    reg.table.names <- c("Parameter", "OR", "95% CI")
-    reg.table <- as.data.frame(cbind(rownames(or.ci),
-                                     or.ci[, "OR"],
-                                     paste0(or.ci[, "2.5 %"], ", ", or.ci[, "97.5 %"])),
-                               stringsAsFactors = FALSE)
-    reg.table <- reg.table[-grep("(Intercept)", rownames(reg.table)), ]
-    colnames(reg.table) <- reg.table.names
-    ivar.name <- attr(model.object$terms, "term.labels")
-    ivar <- as.character(model.object$model[, ivar.name])
-    reg.table$Parameter <- gsub(ivar.name, "", reg.table$Parameter)
-    reference <- unique(ivar)[!(unique(ivar) %in% reg.table$Parameter)]
-    reference.row <- c(paste0("Reference: ", reference), "1", "", "")
-    variable.label <- attr(model.object$model[, ivar.name], "label")
-    if (is.null(variable.label))
-        variable.label <- ivar.name
-    variable.row <- c(variable.label, "", "", "")
-    pretty.table <- rbind(variable.row, reference.row, reg.table)
-    rownames(pretty.table) <- NULL
-    prettier.table <- knitr::kable(pretty.table)
-    return (prettier.table)
+pretty_regression_table <- function(model.object){
+  cis <- confint(model.object)
+  or.ci <- round(exp(cbind(OR = coef(model.object), cis)), digits = 2)
+  reg.table.names <- c("Parameter", "OR", "95% CI")
+  reg.table <- as.data.frame(cbind(rownames(or.ci),
+                                   or.ci[, "OR"],
+                                   paste0(or.ci[, "2.5 %"], ", ", or.ci[, "97.5 %"])),
+                             stringsAsFactors = FALSE)
+  reg.table <- reg.table[-grep("(Intercept)", rownames(reg.table)), ]
+  colnames(reg.table) <- reg.table.names
+  ivar.name <- attr(model.object$terms, "term.labels")
+  ivar <- as.character(model.object$model[, ivar.name])
+  reg.table$Parameter <- gsub(ivar.name, "", reg.table$Parameter)
+  reference <- unique(ivar)[!(unique(ivar) %in% reg.table$Parameter)]
+  reference.row <- c(paste0("Reference: ", reference), "1", "", "")
+  variable.label <- attr(model.object$model[, ivar.name], "label")
+  if (is.null(variable.label))
+    variable.label <- ivar.name
+  variable.row <- c(variable.label, "", "", "")
+  pretty.table <- rbind(variable.row, reference.row, reg.table)
+  rownames(pretty.table) <- NULL
+  prettier.table <- knitr::kable(pretty.table)
+  return (prettier.table)
 }
-
 ## Create a pretty regression table for model1
 pretty_regression_table(model1)
 
-## Logistic regression of public versus private school with RTI
+## Logistic regression of  type_school = "Type of school",
+labelled::var_label(data$type_school) <- "Type of School"
 model2 <- glm(rti_consult ~ type_school, family = "binomial", data = data)
 pretty_regression_table(model2)
 
 ## Logistic regression of Gender with RTI
+labelled::var_label(data$gender) <- "Gender"
 model3 <- glm(rti_consult ~ gender,  family = "binomial", data = data)
 pretty_regression_table(model3)
 
 ## Logistic regression of Accompany to school with RTI
-data$travel_accompany <- as.factor(data$travel_accompany)
-data$travel_accompany <- relevel(data$travel_accompany, ref = "Travelled on my own")
-labelled::var_label(data$travel_accompany) <- "Travel accompany"
-model4 <- glm(rti_consult ~ travel_accompany, family = "binomial", data = data)
+data$home_school_accompany <- as.factor(data$home_school_accompany)
+data$home_school_accompany <- relevel(data$home_school_accompany, ref = "Alone or with someone of same age")
+labelled::var_label(data$home_school_accompany) <- "School travel was alone or accompanied"
+model4 <- glm(rti_consult ~ home_school_accompany, family = "binomial", data = data)
 pretty_regression_table(model4)
 
 # Logistic regression of Returned_Travel_Accompany with RTI
+data$returned_travel_accompany <- relevel(data$returned_travel_accompany, ref = "On own or with other child")
+labelled::var_label(data$returned_travel_accompany) <- "Home travel from school was accompanied with"
 model5 <- glm(rti_consult ~ returned_travel_accompany,  family = "binomial", data = data)
 pretty_regression_table(model5)
 
-# Logistic regression of Parent Trust with RTI
+# Logistic regression of parents_trust = "Parents trust on child when in traffic alone" with RTI
+labelled::var_label(data$parent_trust) <- "Parents trust on child when in traffic alone"
 model6 <- glm(rti_consult ~ parents_trust,  family = "binomial", data = data)
 pretty_regression_table(model6)
 
-# Logistic regression of Allow_Public_Bus with RTI
+# Logistic regression of allow_public_bus = "Child allowed to go on public bus" with RTI
+labelled::var_label(data$allow_public_bus) <- "Child allowed to go on public bus"
 model7 <- glm(rti_consult ~ allow_public_bus,  family = "binomial", data = data)
 pretty_regression_table(model7)
 
-# Logistic regression of CRoss main road with RTI
+# Logistic regression of cross_road = " Child allowed to cross main roads", with RTI
+labelled::var_label(data$cross_road) <- "Child allowed to cross main roads"
 model8 <- glm(rti_consult ~ cross_road,  family = "binomial", data = data)
 pretty_regression_table(model8)
 
+# Logistic regression of home_school_transport = "Mode of transport to school" with RTI
+data$home_school_transport <- relevel(data$home_school_transport, ref = "Walking")
+labelled::var_label(data$home_school_transport) <- "Mode of transport to school"
+model9 <- glm(rti_consult ~ home_school_transport,  family = "binomial", data = data)
+pretty_regression_table(model9)
+
+# Logistic regression of   school_home_transport = "Mode of transport on way back to home from school" with RTI
+data$school_home_transport <- relevel(data$school_home_transport, ref = "Walking")
+labelled::var_label(data$school_home_transport) <- "Mode of transport on way back to home from school"
+model10 <- glm(rti_consult ~ school_home_transport,  family = "binomial", data = data)
+pretty_regression_table(model10)
+
+# Logistic regression of timeschool = "Time to reach school" with RTI
+data$timeschool <- relevel(data$timeschool, ref = "5 mins")
+labelled::var_label(data$timeschool) <- "Time to reach school"
+model11 <- glm(rti_consult ~ timeschool,  family = "binomial", data = data)
+pretty_regression_table(model11)
+
+# Logistic regression of any_activity  = "Child activity over the weekend" with RTI
+data$any_activity <- relevel(data$any_activity, ref = "No activity on the weekend")
+labelled::var_label(data$any_activity) <- "Child activity over the weekend"
+model12 <- glm(rti_consult ~ any_activity,  family = "binomial", data = data)
+pretty_regression_table(model12)
+
 #Multivariate Logistic reg
-model9 <- glm(rti_consult ~ age_cat+gender+grade + type_school+shift_school+school_transport+travel_accompany+
-              time_school+school_home_transport+returned_travel_accompany+parents_trust+cross_road+
-              allow_public_bus+visit_friend_home+visit_relatives+worship_place+visit_shop+dineout+
-              visit_cinema+friends_dark+play_ground+play_score+went_for_walk+went_concert+went_club+
-              library+Cafe+tuition+part_time_work+any_activity,
-              family = "binomial", data = data)
-exp(cbind(OR = coef(model9), confint(model9)))
-summary(model9)
-round(lreg.or, digits=2)
+model13 <- glm(rti_consult ~ age+ gender+ type_school+timeschool+school_home_transport+
+                 returned_travel_accompany+parents_trust+cross_road+
+      allow_public_bus+any_activity,family = "binomial", data = data)
+pretty_regression_table(model13)
+
+##pretty.table13 <- pretty_regression_table(model13)
+tmp.file <- tempfile(tmpdir = ".", fileext = "md")
+write(pretty.table9, tmp.file)
+rmarkdown::render(tmp.file, output_file = "Table 9.docx", output_format = "word_document")
+file.remove(tmp.file)
 
 
-
-model10 <- glm(rti_consult ~ age_cat+gender + type_school+shift_school+transport_2or3wheelers+travel_accompany+
-                time_school++parents_trust+cross_road+
-                allow_public_bus+any_activity,
-              family = "binomial", data = data)
-summary(model10)
-exp(cbind(OR = coef(model10), confint(model10)))
-round(lreg.or, digits=2)
-
-
-model11 <- glm(rti_consult ~ age_cat+gender+cross_road+
-               +any_activity,
-              family = "binomial", data = data)
-round(lreg.or, digits=2)
-summary(model11)
-
-exp(cbind(OR = coef(model11), confint(model11)))
-
-lreg.or <-exp(cbind(OR = coef(model11), confint(model11)))
