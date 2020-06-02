@@ -27,21 +27,18 @@ library(rmarkdown)
 ## Reading the data from the above mentioned directory
 data <- data.table::fread("Mobility-data.csv", data.table = FALSE)
 
+## Rename cafe variable
+names(data)[names(data) == "Caf\xe9"] <- "Cafe"
+
 ## Data description
 ## Description of attribute of the variable
 str(data)
-
 
 ## Rename variables
 names(data) <- tolower(names(data))
 names(data) <- gsub("-", "_", names(data))
 names(data) <- gsub(".", "_", names(data), fixed = TRUE)
 names(data) <- gsub(" ", "_", names(data), fixed = TRUE)
-names(data)
-
-names(data)[names(data) == "Age"] <- "age"
-names(data)[names(data) == "Gender"] <- "gender"
-names(data)[names(data) == "Grade"] <- "grade"
 names(data)[names(data) == "typeofsc"] <- "type_school"
 names(data)[names(data) == "transport_2or3wheelers"] <- "home_school_transport"
 names(data)[names(data) == "travel_accompany2"] <- "home_school_accompany"
@@ -52,7 +49,6 @@ names(data)[names(data) == "parents_trust"] <- "parents_trust"
 names(data)[names(data) == "allow_public_bus"] <- "allow_public_bus"
 names(data)[names(data) == "any_activity"] <- "any_activity"
 names(data)[names(data) == "rti_consult"] <- "rti_consult"
-
 
 ## Frequency of variables
 table(data$age)
@@ -70,24 +66,21 @@ table(data$allow_public_bus)
 table(data$any_activity)
 table(data$rti_consult)
 
-
 ## Replace missing in variables with NA
 data$time_to_school[data$time_to_school == "missing"] <- NA
+table(data$time_to_school, useNA = "always")
 data$allow_public_bus[data$allow_public_bus == "missing"] <- NA
+table(data$allow_public_bus, useNA = "always")
 data$rti_consult[data$rti_consult == "missing"] <- NA
-
-table(data$time_to_school,useNA = "always")
-table(data$allow_public_bus,useNA = "always")
-table(data$rti_consult,useNA = "always")
+table(data$rti_consult, useNA = "always")
 
 ## Remove obs missing/NA in variables
 data <- data[!is.na(data$time_to_school),]
+table(data$time_to_school, useNA = "always")
 data <- data[!is.na(data$allow_public_bus),]
+table(data$allow_public_bus, useNA = "always")
 data <- data[!is.na(data$rti_consult),]
-
-table(data$time_to_school)
-table(data$allow_public_bus)
-table(data$rti_consult)
+table(data$rti_consult, useNA = "always")
 
 ## Categrizing age
 data$age_cat <- as.factor(ifelse(data$age < 13, 1, ifelse(data$age > 14, 3, 2)))
@@ -102,11 +95,9 @@ data$rti_consult <- as.character(data$rti_consult)
 data$rti_consult[data$rti_consult == "0"] <- "No road traffic injury"
 data$rti_consult[data$rti_consult == "1"] <- "Road traffic injury"
 data$rti_consult <- as.factor(data$rti_consult)
-
 data$home_school_accompany[data$home_school_accompany == "Merged Parent and Adult"] <- "Either with parent or any other adult"
 data$home_school_accompany[data$home_school_accompany == "Alone/Same Age"] <- "Alone or with someone of same age"
 data$home_school_accompany[data$home_school_accompany == "Mix"] <- "Mix travel pattern; alone or with parents"
-
 data$any_activity[data$any_activity == "Not Done"] <- "No activity on the weekend"
 data$any_activity[data$any_activity == "Mix"] <- "Activities either with parents or alone"
 data$any_activity[data$any_activity == "On Your own or with other young person"] <- "On own or with other young person"
@@ -118,7 +109,6 @@ data$returned_travel_accompany[data$returned_travel_accompany == "Travelling hom
 data$returned_travel_accompany[data$returned_travel_accompany == "Older child / teenager"] <- "On own or with other child"
 data$returned_travel_accompany[data$returned_travel_accompany == "Child of same age or younger"] <- "On own or with other child"
 data$returned_travel_accompany[data$returned_travel_accompany == "Mix"] <- "Mix travel pattern; alone or with parents"
-
 table(data$school_home_transport)
 data$school_home_transport<- as.character(data$school_home_transport)
 data$school_home_transport[data$school_home_transport == "Cycle"] <- "Two or Three Wheelers"
@@ -130,7 +120,7 @@ data$school_home_transport[data$school_home_transport== "School Bus"] <- "Four W
 data$school_home_transport[data$school_home_transport== "School Van"] <- "Four Wheelers"
 data$school_home_transport[data$school_home_transport== "Suzuki"] <- "Four Wheelers"
 data$school_home_transport[data$school_home_transport == "Walking"] <- "Walking"
-table(data$school_home_transpor)
+table(data$school_home_transport)
 
 ## Categorical variables in the data
 catVars <- c("age_cat", 
@@ -147,7 +137,6 @@ catVars <- c("age_cat",
              "allow_public_bus", 
              "any_activity", 
              "rti_consult")
-
 data[catVars] <- lapply(data[catVars], as.factor)
 
 ## Create a label list
@@ -165,7 +154,6 @@ label.list <-list(age_cat = "Age groups",
                   allow_public_bus = "Child allowed to go on public bus",
                   any_activity  = "Child activity over the weekend",
                   rti_consult = "Road traffic injury that required medical consultation")
-                  
 
 ## Keep only relevant variables in the data
 data <- data[, names(label.list)]
@@ -291,15 +279,14 @@ model12 <- glm(rti_consult ~ any_activity,  family = "binomial", data = data)
 pretty_regression_table(model12)
 
 #Multivariate Logistic reg
-model13 <- glm(rti_consult ~ age+ gender+ type_school+timeschool+school_home_transport+
-                 returned_travel_accompany+parents_trust+cross_road+
-      allow_public_bus+any_activity,family = "binomial", data = data)
-pretty_regression_table(model13)
+model13 <- glm(rti_consult ~ age + gender + type_school + time_to_school + school_home_transport +
+                   returned_travel_accompany + parents_trust + cross_road + allow_public_bus +
+                   any_activity,
+               family = "binomial", data = data)
+summary(model13)
+## pretty_regression_table does not work for multivariable models yet
+## pretty_regression_table(model13)
 
-##pretty.table13 <- pretty_regression_table(model13)
-tmp.file <- tempfile(tmpdir = ".", fileext = "md")
-write(pretty.table9, tmp.file)
-rmarkdown::render(tmp.file, output_file = "Table 9.docx", output_format = "word_document")
-file.remove(tmp.file)
+
 
 
