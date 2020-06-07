@@ -44,11 +44,6 @@ names(data)[names(data) == "transport_2or3wheelers"] <- "home_school_transport"
 names(data)[names(data) == "travel_accompany2"] <- "home_school_accompany"
 names(data)[names(data) == "timeschool"] <- "time_to_school"
 names(data)[names(data) == "schoolhometransport"] <- "school_home_transport"
-names(data)[names(data) == "returned_travel_accompany"] <- "returned_travel_accompany"
-names(data)[names(data) == "parents_trust"] <- "parents_trust"
-names(data)[names(data) == "allow_public_bus"] <- "allow_public_bus"
-names(data)[names(data) == "any_activity"] <- "any_activity"
-names(data)[names(data) == "rti_consult"] <- "rti_consult"
 
 ## Frequency of variables
 table(data$age)
@@ -84,8 +79,10 @@ table(data$rti_consult, useNA = "always")
 
 ## Categrizing age
 data$age_cat <- as.factor(ifelse(data$age < 13, 1, ifelse(data$age > 14, 3, 2)))
+table(data$age_cat)
 levels(data$age_cat) <- c("9 to 12","13 to 14","15 to 20")
 summary(data$age_cat)
+
 ## Replace blank in variable  time_to_school with NA
 #data$time_to_school[data$time_to_school == ""] <- NA
 #table(data$time_to_school)
@@ -154,7 +151,7 @@ label.list <-list(age_cat = "Age groups",
                   allow_public_bus = "Child allowed to go on public bus",
                   any_activity  = "Child activity over the weekend",
                   rti_consult = "Road traffic injury that required medical consultation")
-
+                  
 ## Keep only relevant variables in the data
 data <- data[, names(label.list)]
 
@@ -280,13 +277,9 @@ pretty_regression_table(model12)
 
 #Multivariate Logistic reg
 model13 <- glm(rti_consult ~ age + gender + type_school + time_to_school + school_home_transport +
-                   returned_travel_accompany + parents_trust + cross_road + allow_public_bus +
-                   any_activity,
-               family = "binomial", data = data)
+                 returned_travel_accompany + parents_trust + cross_road + allow_public_bus +
+                 any_activity,
+                family = "binomial", data = data)
 summary(model13)
-## pretty_regression_table does not work for multivariable models yet
-## pretty_regression_table(model13)
-
-
-
-
+or.ci<- exp(cbind(OR = coef(model13), confint(model13)))
+round(or.ci, digits=2)
